@@ -2,7 +2,7 @@ import logging
 
 from fastapi import FastAPI
 
-from app import api, config
+from app import api
 from app.storage.memory_storage import MemoryStorage
 
 log = logging.getLogger(__name__)   # pylint: disable=invalid-name
@@ -19,7 +19,6 @@ def create_app():
     @app_.on_event("startup")
     def startup():
         app_.storage = MemoryStorage()
-
 
     return app_
 

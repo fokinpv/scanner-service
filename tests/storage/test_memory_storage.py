@@ -2,8 +2,6 @@ from unittest.mock import Mock
 
 import pytest
 
-import pytest
-
 from app.storage.models import Task
 from app.storage.memory_storage import MemoryStorage
 
