@@ -9,11 +9,11 @@ from app.cases import cases
 from app.storage.abc_storage import Storage
 
 log = logging.getLogger(__name__)   # pylint: disable=invalid-name
-router = APIRouter()
+router = APIRouter()   # pylint: disable=invalid-name
 
 
 def get_storage(request: Request):
-    """Solver injector."""
+    """Storage injector."""
     return request.app.storage
 
 
@@ -32,7 +32,6 @@ async def detectify(
 ):
     try:
         domains = await cases.find_nginx(storage, request.domains)
-        print(domains)
     except Exception as exc:
         log.error(exc)
         raise HTTPException(status_code=404)

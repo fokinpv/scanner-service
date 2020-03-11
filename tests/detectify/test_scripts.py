@@ -17,5 +17,4 @@ async def test_detect_nginx(mocker, domains):
         Mock(return_value=AsyncMock())
     )
     domains_result = await scripts.detect_nginx(domains)
-    print(domains_result)
     assert domains_result

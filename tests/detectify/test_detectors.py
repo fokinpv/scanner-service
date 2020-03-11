@@ -27,7 +27,7 @@ def domain():
 
 @pytest.mark.asyncio
 async def test_nginx_success(client_nginx, domain):
-    domain = await Nginx(client=client_nginx).for_domain(domain).detect()
+    domain = await Nginx(client=client_nginx).detect(domain)
 
     assert domain.name == 'example.com'
     assert domain.properties['nginx']
@@ -35,7 +35,7 @@ async def test_nginx_success(client_nginx, domain):
 
 @pytest.mark.asyncio
 async def test_nginx_failure(client_not_nginx, domain):
-    domain = await Nginx(client=client_not_nginx).for_domain(domain).detect()
+    domain = await Nginx(client=client_not_nginx).detect(domain)
 
     assert domain.name == 'example.com'
     assert domain.properties['nginx'] is False
