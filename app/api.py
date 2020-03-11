@@ -3,6 +3,7 @@ import logging
 from fastapi import APIRouter, Depends
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
+from starlette.responses import Response
 from pydantic import BaseModel
 
 from app.cases import cases
@@ -23,6 +24,11 @@ class DetectifyRequest(BaseModel):
 
 class DetectifyResponse(BaseModel):
     domains: list
+
+
+@router.get('/', include_in_schema=False)
+def index():
+    return Response("I'm up", media_type='text/plain')
 
 
 @router.post('/api/detect/nginx', response_model=DetectifyResponse)
