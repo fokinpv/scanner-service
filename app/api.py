@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from fastapi import APIRouter, Depends
 from starlette.exceptions import HTTPException
@@ -19,11 +20,11 @@ def get_storage(request: Request):
 
 
 class DetectifyRequest(BaseModel):
-    domains: list
+    domains: List[str]
 
 
 class DetectifyResponse(BaseModel):
-    domains: list
+    domains: List[str]
 
 
 @router.get('/', include_in_schema=False)
