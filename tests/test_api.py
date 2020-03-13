@@ -26,7 +26,7 @@ def test_index(client):
 
 def test_detect_nginx_get(client):
     resp = client.get('/api/detects')
-    assert resp.status_code == 405
+    assert resp.status_code == 200
 
 
 def test_detect_nginx_empty(client):
