@@ -12,7 +12,7 @@ async def find_nginx(storage, domains, with_ip=False):
     if with_ip:
         domain_infos = await scripts.detect_ip(domain_infos)
 
-    task.domain_infos = domain_infos
+    task.results = domain_infos
     await storage.update(task)
 
     return {
@@ -20,3 +20,11 @@ async def find_nginx(storage, domains, with_ip=False):
         for domain in domain_infos
         if domain.properties.get('nginx', False)
     }
+
+
+async def get_last(storage, limit=None):
+    tasks = await storage.get_list(limit)
+    return [
+        task.as_dict()
+        for task in tasks
+    ]

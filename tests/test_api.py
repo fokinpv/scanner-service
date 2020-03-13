@@ -25,12 +25,12 @@ def test_index(client):
 
 
 def test_detect_nginx_get(client):
-    resp = client.get('/api/detect/nginx')
+    resp = client.get('/api/detects')
     assert resp.status_code == 405
 
 
 def test_detect_nginx_empty(client):
-    resp = client.post('/api/detect/nginx')
+    resp = client.post('/api/detects')
     assert resp.status_code == 422
 
 
@@ -44,7 +44,7 @@ def test_detect_nginx_fail(mocker, client):
         'domains': ['example.com', 'blog.detectify.com']
     }
 
-    resp = client.post('/api/detect/nginx', json=payload)
+    resp = client.post('/api/detects', json=payload)
     assert resp.status_code == 404
 
 
@@ -58,5 +58,5 @@ def test_detect_nginx_success(mocker, client):
         'domains': ['example.com', 'blod.detectify.com']
     }
 
-    resp = client.post('/api/detect/nginx', json=payload)
+    resp = client.post('/api/detects', json=payload)
     assert resp.status_code == 200

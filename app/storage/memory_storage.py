@@ -12,6 +12,13 @@ class MemoryStorage(Storage):
             raise RuntimeError
         return self._items[id_]
 
+    async def get_list(self, limit):
+        return [
+            item
+            for idx, item in enumerate(self._items.values())
+            if idx < limit
+        ]
+
     async def add(self, task):
         if task.id is not None:
             raise RuntimeError
