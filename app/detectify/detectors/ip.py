@@ -1,4 +1,13 @@
+import socket
+
 from .base import Base
+
+
+class SocketClient:
+
+    async def get_ip(self, domain):
+        # FIXME Change to <asynchronous library
+        return socket.gethostbyname(domain)
 
 
 class IP(Base):

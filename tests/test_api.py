@@ -41,7 +41,7 @@ def test_detect_nginx_fail(mocker, client):
     )
 
     payload = {
-      'domains': ['example.com', 'blod.detectify.com']
+        'domains': ['example.com', 'blog.detectify.com']
     }
 
     resp = client.post('/api/detect/nginx', json=payload)
@@ -51,11 +51,11 @@ def test_detect_nginx_fail(mocker, client):
 def test_detect_nginx_success(mocker, client):
     mocker.patch(
         'app.cases.cases.find_nginx',
-        AsyncMock(return_value=['blod.detectify'])
+        AsyncMock(return_value={'blog.detectify.com': {'nginx': True}})
     )
 
     payload = {
-      'domains': ['example.com', 'blod.detectify.com']
+        'domains': ['example.com', 'blod.detectify.com']
     }
 
     resp = client.post('/api/detect/nginx', json=payload)

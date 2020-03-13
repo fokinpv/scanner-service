@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends
 from starlette.exceptions import HTTPException
@@ -21,10 +21,11 @@ def get_storage(request: Request):
 
 class DetectifyRequest(BaseModel):
     domains: List[str]
+    with_ip: Optional[bool]
 
 
 class DetectifyResponse(BaseModel):
-    domains: List[str]
+    domains: dict
 
 
 @router.get('/', include_in_schema=False)
@@ -38,7 +39,9 @@ async def detectify(
         storage: Storage = Depends(get_storage)
 ):
     try:
-        domains = await cases.find_nginx(storage, request.domains)
+        domains = await cases.find_nginx(
+            storage, request.domains, request.with_ip
+        )
     except Exception as exc:
         log.error(exc)
         raise HTTPException(status_code=404)

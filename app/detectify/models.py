@@ -3,6 +3,9 @@ class Domain:
         self.name = name
         self.properties = properties or {}
 
+    def __str__(self):
+        return f'{self.name}\n {self.properties}'
+
     def add_property(self, name, value):
         self.properties[name] = value
 
