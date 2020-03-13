@@ -12,7 +12,7 @@ def create_app():
     app_ = FastAPI(  # pylint: disable=invalid-name
         title='Detectify Service',
         description='Detectify service',
-        version="0.0.1",
+        version="0.1.0",
     )
     app_.include_router(api.router)
 
