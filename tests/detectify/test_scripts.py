@@ -18,3 +18,13 @@ async def test_detect_nginx(mocker, domains):
     )
     domains_result = await scripts.detect_nginx(domains)
     assert domains_result
+
+
+@pytest.mark.asyncio
+async def test_detect_ip(mocker, domains):
+    mocker.patch(
+        'app.detectify.detectors.IP',
+        Mock(return_value=AsyncMock())
+    )
+    domains_result = await scripts.detect_ip(domains)
+    assert domains_result

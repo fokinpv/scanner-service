@@ -2,8 +2,15 @@ from unittest.mock import AsyncMock, Mock
 
 import pytest
 
-from app.detectify.detectors import Nginx
+from app.detectify.detectors import IP, Nginx
 from app.detectify.models import Domain
+
+
+@pytest.fixture
+def client_ip():
+    _client = Mock()
+    _client.get_ip = AsyncMock(return_value='127.0.0.1')
+    return _client
 
 
 @pytest.fixture
@@ -39,3 +46,11 @@ async def test_nginx_failure(client_not_nginx, domain):
 
     assert domain.name == 'example.com'
     assert domain.properties['nginx'] is False
+
+
+@pytest.mark.asyncio
+async def test_ip_success(client_ip, domain):
+    domain = await IP(client=client_ip).detect(domain)
+
+    assert domain.name == 'example.com'
+    assert domain.properties['ip']  == '127.0.0.1'
