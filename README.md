@@ -1,4 +1,4 @@
-# Detectify Service
+# Scanner Service
 
 This service is able to detect `nginx` usage on a given domains.
 
